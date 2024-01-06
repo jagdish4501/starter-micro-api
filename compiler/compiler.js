@@ -22,6 +22,7 @@ const compile = async (req, res) => {
             console.error('Error parsing JSON or executing code:', error);
             success = false;
         }
+
         // Send response based on success flag
         if (success) {
             res.writeHead(200, { 'Content-Type': 'application/json' });

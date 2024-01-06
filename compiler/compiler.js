@@ -1,4 +1,4 @@
-import { JS_Compiler, Python_Compiler } from './executer.js';
+import { JS_Compiler, Python_Compiler, shell } from './executer.js';
 
 const compile = async (req, res) => {
     let data = '';
@@ -18,6 +18,8 @@ const compile = async (req, res) => {
                 result = await Python_Compiler(code, input);
             else if (language === 'java')
                 result = 'java compiler will we available soon';
+            else if (language === 'powershell')
+                result = await shell(code, input);
         } catch (error) {
             console.error('Error parsing JSON or executing code:', error);
             success = false;

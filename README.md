@@ -1,12 +1,27 @@
-# starter-micro-api
+# Documentation (News API )
 
-This is the simplest possible nodejs api using the base http library that responds to any request with: 
-```
-Yo!
-```
 
-## Deploy in under 10 seconds
+follow the https://newsapi.org/docs Documentation
 
-[![Deploy to Cyclic](https://deploy.cyclic.app/button.svg)](https://deploy.cyclic.app/)
-- Sets up instant continuous deployment on `git push`
-- Realtime backend logs and API request monitoring
+and replace the https://newsapi.org  with https://new-api-fnsb.onrender.com/
+
+
+and /v2 with /api
+
+
+for example :
+
+GET https://newsapi.org/v2/everything?q=bitcoin&apiKey=YourAPIKEY
+
+and 
+
+GET https://new-api-fnsb.onrender.com/api/everything?q=bitcoin
+
+give same result  (if you got a message to many request then  try again you surely get result"
+
+note in original api you need to use your own api key but in my API you donot need any api key 
+
+## you can make unlimited number of API hit with my API 😁😁
+
+
+

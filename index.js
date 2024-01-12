@@ -1,5 +1,7 @@
 import http from 'http';
 import fs from 'fs';
+import https from 'https';
+import axios from 'axios';
 import { makeApiRequest } from './ApiReq.js';
 import compile from './compiler/compiler.js';
 const PORT = 5000;
@@ -18,6 +20,27 @@ const server = http.createServer(async (req, res) => {
         makeApiRequest('top-headlines', req, res);
     } else if (req.url.match(/\/api\/compile/) && req.method === 'POST') {
         compile(req, res)
+    } else if (req.url.match(/\/api/) && req.method === 'GET') {
+        try {
+            // Combine the base URL and the request URL
+            const url = 'https://52.66.103.125' + req.url;
+            console.log(url);
+            // Make the GET request to the target server
+            const targetResponse = await axios.get(url, {
+                httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+                responseType: 'stream', // Ensure the response is treated as a stream
+            });
+
+            // Forward the response headers to the client
+            res.writeHead(targetResponse.status, targetResponse.headers);
+
+            // Pipe the response from the target server to the client
+            targetResponse.data.pipe(res);
+        } catch (error) {
+            console.error(error);
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Not Found' }));
+        }
     }
     else {
         try {
